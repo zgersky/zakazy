@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Пример YML-фида, адаптированного под Яндекс Маркет, с выдуманными товарами.
+
+  Соответствие требуемых атрибутов тегам YML для Яндекс Маркета:
+    - название товара         -> <name>
+    - категория                -> <categoryId> (справочник категорий ниже)
+    - артикул продавца         -> <vendorCode>
+    - бренд                    -> <vendor>
+    - код ТН ВЭД               -> <tn-ved-code>
+    - 6 ссылок на изображения  -> шесть тегов <picture> (Маркет принимает до 10 картинок на офер)
+    - габариты упаковки        -> <dimensions>Ш x Д x В</dimensions>, в сантиметрах,
+                                   порядок: ширина x длина x высота, разделитель "x"
+    - вес в граммах            -> <weight>, но у Яндекса это ЕДИНИЦА ИЗМЕРЕНИЯ - КИЛОГРАММЫ,
+                                   поэтому граммы из исходных данных пересчитаны в кг
+                                   (320 г -> 0.32)
+    - остаток на складе        -> <count>
+    - текущая цена продажи     -> <price>
+    - старая цена продажи      -> <oldprice> (Маркет показывает её как зачёркнутую/скидку)
+    - НДС 22% для всех товаров -> <vat>VAT_22</vat>
+
+  ВАЖНО: с 15 июня 2026 года Яндекс Маркет требует обязательно указывать вес и габариты
+  товара в упаковке для всех офферов (минимум 0.1 см / 0.001 кг). В этом примере габариты
+  и вес переданы через теги <dimensions> и <weight>, как это принято в YML-модулях
+  выгрузки на Маркет (1С-Битрикс, InSales и др.). Перед боевой выгрузкой обязательно
+  сверьте актуальные требования в личном кабинете Яндекс Маркета и валидатором фида,
+  так как форматы отдельных полей периодически уточняются площадкой.
+-->
+<yml_catalog date="2026-09-09 09:14">
+  <shop>
+    <name>ExampleShop</name>
+    <company>ООО "Пример Торг"</company>
+    <url>https://example-shop.ru</url>
+    <platform>CustomCMS</platform>
+
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+
+    <categories>
+      <category id="1">Электроника</category>
+      <category id="2" parentId="1">Аудиотехника</category>
+      <category id="3">Дом и сад</category>
+      <category id="4" parentId="3">Кухня</category>
+      <category id="5">Спорт и отдых</category>
+      <category id="6" parentId="5">Туризм</category>
+    </categories>
+
+    <offers>
+
+      <offer id="1001" available="true">
+        <name>Беспроводные наушники SoundMax Pro X200</name>
+        <categoryId>2</categoryId>
+        <vendor>SoundMax</vendor>
+        <vendorCode>SM-X200-BLK</vendorCode>
+
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/5/32/347558451035325.webp</picture>
+        <picture>https://tulapressa.ru/wp-content/uploads/2025/09/01/b588c67f621e4e0b-650x366.jpg</picture>
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/6/50/347560438744506.webp</picture>
+        <picture>https://cdn.iz.ru/sites/default/files/inline/45_7.jpg</picture>
+        <picture>https://s10.stc.all.kpcdn.net/family/wp-content/uploads/2024/08/photo-in-article-kartinki-i-otkrytki-s-1-sentjabrja-1024x1024-d-025-pr6.jpg</picture>
+        <picture>https://iz.ru/sites/default/files/inline/44_8.jpg</picture>
+
+        <price>1777</price>
+        <oldprice>5990</oldprice>
+        <currencyId>RUB</currencyId>
+
+        <!-- габариты упаковки (ширина x длина x высота, см) и вес (кг) -->
+        <dimensions>18x6x8</dimensions>
+        <weight>0.32</weight>
+
+        <tn-ved-code>8518300000</tn-ved-code>
+        <vat>VAT_22</vat>
+        <count>350</count>
+
+        <description>Беспроводные накладные наушники с активным шумоподавлением и временем работы до 30 часов.</description>
+      </offer>
+
+      <offer id="1002" available="true">
+        <name>Кухонный комбайн ChefMaster KM-750</name>
+        <categoryId>4</categoryId>
+        <vendor>ChefMaster</vendor>
+        <vendorCode>CM-KM750-WHT</vendorCode>
+
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/5/32/347558451035325.webp</picture>
+        <picture>https://tulapressa.ru/wp-content/uploads/2025/09/01/b588c67f621e4e0b-650x366.jpg</picture>
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/6/50/347560438744506.webp</picture>
+        <picture>https://cdn.iz.ru/sites/default/files/inline/45_7.jpg</picture>
+        <picture>https://s10.stc.all.kpcdn.net/family/wp-content/uploads/2024/08/photo-in-article-kartinki-i-otkrytki-s-1-sentjabrja-1024x1024-d-025-pr6.jpg</picture>
+        <picture>https://iz.ru/sites/default/files/inline/44_8.jpg</picture>
+
+        <price>1777</price>
+        <oldprice>14990</oldprice>
+        <currencyId>RUB</currencyId>
+
+        <dimensions>35x22x28</dimensions>
+        <weight>4.2</weight>
+
+        <tn-ved-code>8509400000</tn-ved-code>
+        <vat>VAT_22</vat>
+        <count>17</count>
+
+        <description>Многофункциональный кухонный комбайн: 6 насадок, 750 Вт, чаша 3 л.</description>
+      </offer>
+
+      <offer id="1003" available="true">
+        <name>Термокружка TrekWay Thermo 500</name>
+        <categoryId>6</categoryId>
+        <vendor>TrekWay</vendor>
+        <vendorCode>TW-TH500-GRN</vendorCode>
+
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/5/32/347558451035325.webp</picture>
+        <picture>https://tulapressa.ru/wp-content/uploads/2025/09/01/b588c67f621e4e0b-650x366.jpg</picture>
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/6/50/347560438744506.webp</picture>
+        <picture>https://cdn.iz.ru/sites/default/files/inline/45_7.jpg</picture>
+        <picture>https://s10.stc.all.kpcdn.net/family/wp-content/uploads/2024/08/photo-in-article-kartinki-i-otkrytki-s-1-sentjabrja-1024x1024-d-025-pr6.jpg</picture>
+        <picture>https://iz.ru/sites/default/files/inline/44_8.jpg</picture>
+
+        <price>1777</price>
+        <oldprice>1590</oldprice>
+        <currencyId>RUB</currencyId>
+
+        <dimensions>8x22x8</dimensions>
+        <weight>0.35</weight>
+
+        <tn-ved-code>9617001000</tn-ved-code>
+        <vat>VAT_22</vat>
+        <count>1599</count>
+
+        <description>Термокружка объёмом 500 мл, сохраняет температуру напитка до 6 часов.</description>
+      </offer>
+
+      <offer id="1004" available="true">
+        <name>Туристический рюкзак TrekWay</name>
+        <categoryId>6</categoryId>
+        <vendor>TrekWay</vendor>
+        <vendorCode>TW-RUSH30-BLU</vendorCode>
+
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/5/32/347558451035325.webp</picture>
+        <picture>https://tulapressa.ru/wp-content/uploads/2025/09/01/b588c67f621e4e0b-650x366.jpg</picture>
+        <picture>https://s0.rbk.ru/v6_top_pics/media/img/6/50/347560438744506.webp</picture>
+        <picture>https://cdn.iz.ru/sites/default/files/inline/45_7.jpg</picture>
+        <picture>https://s10.stc.all.kpcdn.net/family/wp-content/uploads/2024/08/photo-in-article-kartinki-i-otkrytki-s-1-sentjabrja-1024x1024-d-025-pr6.jpg</picture>
+        <picture>https://iz.ru/sites/default/files/inline/44_8.jpg</picture>
+
+        <price>1777</price>
+        <oldprice>3990</oldprice>
+        <currencyId>RUB</currencyId>
+
+        <dimensions>28x18x50</dimensions>
+        <weight>0.78</weight>
+
+        <tn-ved-code>4202920009</tn-ved-code>
+        <vat>VAT_22</vat>
+        <count>999</count>
+
+        <description>Влагозащищённый рюкзак 30 л с отделением для ноутбука 15".</description>
+      </offer>
+
+    </offers>
+  </shop>
+</yml_catalog>
